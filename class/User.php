@@ -93,7 +93,7 @@ class User{
       } else {
         $this->_db = DB::getInstance();
         $this->_db->select('password');
-        $result = $this->_db->getWhereOnce('username',['username','=',
+        $result = $this->_db->getWhereOnce('user',['username','=',
                   $this->_formItem['username']]);
 
         if(empty($result) || !password_verify($this->_formItem['password'],
@@ -121,9 +121,17 @@ class User{
     header("Location: login.php");
   }
 
-  public function generate($id){
+  public function generateId($id){
     $this->_db = DB::getInstance();
     $result = $this->_db->getWhereOnce('user',['id','=',$id]);
+    foreach ($result as $key => $val) {
+      $this->_formItem[$key] = $val;
+    }
+  }
+
+  public function generate($username){
+    $this->_db = DB::getInstance();
+    $result = $this->_db->getWhereOnce('user',['username','=',$username]);
     foreach ($result as $key => $val) {
       $this->_formItem[$key] = $val;
     }
@@ -150,7 +158,7 @@ class User{
       setRules('ulangipasswordbaru','Ulangi password baru',[
         'sanitize' => 'string',
         'required' => true,
-        'matches' => 'password_baru'
+        'matches' => 'passwordbaru'
       ]);
 
       if(!$validate->passed()) {
@@ -158,7 +166,7 @@ class User{
       } else {
         $this->_db = DB::getInstance();
         $this->_db->select('password');
-        $result = $this->_db->getWhereOnce('username',['username','=',
+        $result = $this->_db->getWhereOnce('user',['username','=',
                                             $this->_formItem['username']]);
 
         if(empty($result) || !password_verify($this->_formItem['passwordlama'],

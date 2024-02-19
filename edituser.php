@@ -6,7 +6,7 @@ require 'init.php';
 // }
 
 $user = new User();
-$user->generate(Input::get('id'));
+$user->generateId(Input::get('id'));
 
 
 if(!empty($_POST)){

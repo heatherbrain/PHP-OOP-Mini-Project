@@ -1,7 +1,5 @@
 <?php   
-
 require 'init.php';
-require 'class/User.php';
 
 $user = new User();
 $user->cekUserSession();

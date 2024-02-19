@@ -1,13 +1,13 @@
 <?php 
 require 'init.php';
-require 'class/DB.php';
+require_once 'class/DB.php';
 require 'class/Validate.php';
 require 'class/Input.php';
 
 $user = new User();
 $user->cekUserSession();
+$user->generate($_SESSION["username"]);
 
-// $user->generate($_SESSION['username']);
 
 if(!empty($_POST)) {
   $pesanError = $user->validasiUbahPassword($_POST);
@@ -24,11 +24,17 @@ include 'template/navbar.php'
     <div>
 
     <h1 class="p-2 text-xl text-center font-semibold"><a href="profile.php"><?php echo $_SESSION['username'] ?>'s Profile</a></h1>
+    <p class="text-center">
+     <?php echo $user->getItem('username')." (".$user->getItem('email').")"; ?>
+    </p>
+    <p class="text-xl font-semibold">
+        <button type="button" data-bs-target="#formPassword">Ubah Password</button>
+    </p>
             <div>
     
                 <?php
             if (!empty($pesanError)):
-          ?>
+              ?>
     
     <div id="">
             <div class="bg-red-100 text-red-500 w-[300px] p-3 mb-3">
@@ -50,30 +56,38 @@ include 'template/navbar.php'
 
           <!-- proses update -->
 
-        <p>
-            <button type="button" data-bs-target="#formPassword">Ubah Password</button>
-        </p>
 
         <form method="post" id="formPassword" class="<?php if(!empty($_POST)) {echo "show";} ?>">
 
-        <div>
-            <label for="passwordlama">Password Lama</label>
-            <input type="password" name="passwordlama" id="passwordlama">
-        </div>
+        <div class="p-5">
 
-        <div>
-            <label for="passwordbaru">Password Baru</label>
-            <small>(Minimal 4 karakter huruf dan harus terdapat angka)</small>
-            <input type="passwordbaru" name="passwordbaru" id="passwordbaru">
-        </div>
-            
-        <div>
-            <label for="ulangipasswordbaru">Ulangi Password Baru</label>
-            <input type="password" name="ulangipasswordbaru">
-        </div>
+          <div>
+              <label for="passwordlama">Password Lama</label>
+              <br>
+              <input type="password" name="passwordlama" id="passwordlama">
+          </div>
+  
+          <div>
+              <label for="passwordbaru">Password Baru</label>
+              <small>(Minimal 4 karakter huruf dan harus terdapat angka)</small>
+              <br>
+              <input type="password" name="passwordbaru" id="passwordbaru">
+          </div>
+              
+          <div>
+              <label for="ulangipasswordbaru">Ulangi Password Baru</label>
+              <br>
+              <input type="password" name="ulangipasswordbaru" id="ulangipasswordbaru">
+          </div>
+  
+              <input type="submit" value="Update" type="submit" class="p-2 w-[150px] flex justify-center items-center text-sm h-[40px] ml-5 mt-5 text-white bg-gray-500 font-semibold rounded-[7px] dark:hover:bg-gray-600 dark:focus:ring-gray-800">
 
-            <input type="submit" value="Update">
+        </div>
 
         </form>
     </div>
 </div>
+
+<?php  
+include('./template/footer.php');
+?>

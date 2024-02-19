@@ -1,15 +1,11 @@
 <?php
-// jalankan init.php (untuk session_start dan autoloader)
 require 'init.php';
 
-// buat object barang yang akan dipakai untuk proses input
 $user = new User();
 
 if (!empty($_POST)) {
-  // jika terdeteksi form di submit, jalankan proses validasi
   $pesanError = $user->validasiInsert($_POST);
   if (empty($pesanError)) {
-    // jika tidak ada error, proses insert barang
     $user->insert();
     header('Location:tableuser.php');
   }

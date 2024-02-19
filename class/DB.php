@@ -1,20 +1,17 @@
 <?php
 class DB{
 
-  // Property untuk koneksi ke database mysql
   private $_host = '127.0.0.1';
   private $_dbname = 'ilkoom';
   private $_username = 'root';
   private $_password = '';
 
-  // Property internal dari class DB
   private static $_instance = null;
   private $_pdo;
   private $_columnName = "*";
   private $_orderBy = "";
   private $_count = 0;
 
-  // Constructor untuk pembuatan PDO Object
   private function __construct(){
     try {
       $this->_pdo = new PDO('mysql:host='.$this->_host.';dbname='.$this->_dbname,
@@ -138,3 +135,4 @@ class DB{
   }
 
 }
+?>

@@ -1,5 +1,8 @@
 <?php
     include('header.php');
+    $user = new User();
+    $user->cekUserSession();
+    $user->generate($_SESSION["username"]);
 ?>
 
 <nav class="bg-gray border-gray-200 dark:bg-gray-900">
