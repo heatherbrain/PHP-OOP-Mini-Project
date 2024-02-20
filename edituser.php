@@ -6,8 +6,7 @@ require 'init.php';
 // }
 
 $user = new User();
-$user->generateId(Input::get('id'));
-
+$userDetail = $user->getItemById(Input::get('id'));
 
 if(!empty($_POST)){
     $pesanError = $user->validasi($_POST);
@@ -58,7 +57,7 @@ include 'template/navbar.php';
             <br>
             <input type="number" 
             disabled name="id" id="id" class="w-[250px] h-[30px]"
-            value="<?php echo $user->getItem('id'); ?>" class="form-control">
+            value="<?= $userDetail->id; ?>" class="form-control">
             <small class="text-gray-300">ID user tidak bisa diubah</small>
           </div>
           <div>
@@ -66,21 +65,21 @@ include 'template/navbar.php';
             <br>
             <input type="text" 
             name="username" id="username" class="w-[250px] h-[30px]"
-            value="<?php echo $user->getItem('username'); ?>" class="form-control">
+            value="<?= $userDetail->username; ?>" class="form-control">
           </div>
           <div class="mb-3">
             <label for="email">Email</label>
             <br>
             <input type="text" 
             name="email" id="email" class="w-[250px] h-[30px]"
-            value="<?php echo $user->getItem('email'); ?>" class="form-control">
+            value="<?= $userDetail->email; ?>" class="form-control">
           </div>
           <div>
             <label for="password">Password</label>
             <br>
             <input type="password" 
             name="password" id="password" class="w-[250px] h-[30px]"
-            value="<?php echo $user->getItem('password'); ?>" class="form-control">
+            value="<?= $userDetail->password; ?>" class="form-control">
           </div>
           <input type="submit" value="Update" class=" text-white bg-gray-500 mt-5 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
           <a href="tableuser.php" class=" text-white bg-gray-500 mt-5 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Cancel</a>

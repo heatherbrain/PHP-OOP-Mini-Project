@@ -65,6 +65,13 @@ class User{
     return isset($this->_formItem[$item]) ? $this->_formItem[$item] : '';
   }
 
+  public function getItemById($id){
+    $this->_db = DB::getInstance();
+    $condition = 'where id = ' . $id;
+    $userDetail = $this->_db->get('user', $condition);
+    return $userDetail[0];
+  }
+
   public function insert(){
     $this->_db = DB::getInstance();
     $newUser = [
@@ -103,6 +110,20 @@ class User{
         }
       }
   }
+
+  public function update($id){
+    $newUser = [
+      'username' => $this->getItem('username'),
+      'email' => $this->getItem('email'),
+      'email' => $this->getItem('password')
+    ];
+    $this->_db->update('user',$newUser,['id','=',$id]);
+  }
+  
+  public function delete($id){
+    $this->_db->delete('user',['id','=',$id]);
+  }
+  
 
   public function login(){
     $_SESSION["username"] = $this->getItem('username');
